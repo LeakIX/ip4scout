@@ -52,8 +52,8 @@ jobs:
         CGOENABLED: 1
       run: |
         mkdir bin || true
-        apt-get update
-        apt-get install -y --no-install-recommends libpcap-dev gcc
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends libpcap-dev gcc
         GOOS=linux GOARCH=386 go build -ldflags="-s -w  -extldflags '-static'" -o bin/${PROJECT_NAME}-linux-32 -v ./...
         GOOS=linux GOARCH=amd64 go build -ldflags="-s -w -extldflags '-static'" -o bin/${PROJECT_NAME}-linux-64 -v ./...
         GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w -extldflags '-static'" -o bin/${PROJECT_NAME}-freebsd-64 -v ./...
