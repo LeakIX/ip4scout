@@ -5,6 +5,7 @@ go 1.11
 require (
 	github.com/LeakIX/gopacket v0.0.0-20201202174338-3b8c304bfd90
 	github.com/Machiel/slugify v1.0.1 // indirect
+	github.com/alecthomas/kong v0.2.12-0.20201112003237-5a9b3ae0120c
 	github.com/google/gopacket v1.1.19
 	github.com/mostlygeek/arp v0.0.0-20170424181311-541a2129847a
 	github.com/stretchr/testify v1.6.1 // indirect

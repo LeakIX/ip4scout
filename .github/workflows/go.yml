@@ -54,7 +54,7 @@ jobs:
         mkdir bin || true
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends libpcap-dev gcc
-        go build -ldflags="-s -w" -o bin/${PROJECT_NAME}-linux-64 -v ./...
+        go build -ldflags="-s -w" -o bin/${PROJECT_NAME}-linux-64 -v ./cmd/${PROJECT_NAME}
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
