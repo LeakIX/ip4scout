@@ -6,7 +6,7 @@
 IP4scout was born from the need of having a real-time feed of open ports.
 Instead of scanning Internet in one shot, it takes a ports list and probe random hosts at a predefined rate.
 
-Scanning at 5kps for 10 ports, statistically leaves has an average of 2 weeks between 2 hosts.
+Scanning at 5kps for 10 ports, statistically has an average of 2 weeks between 2 hosts.
 
 Leaks are random, so is this!
 
@@ -47,7 +47,7 @@ The installation is easy. You can download the pre-built binaries for your platf
 ▶ mv ip4scout-linux-64 /usr/local/bin/ip4scout
 ```
 
-### From source
+### From Source
 
 You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 
@@ -65,7 +65,7 @@ You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 
 ## Handling output
 
-ip4scout speaks [l9format](l9format) which as JSON schema targeted at network recon.
+ip4scout speaks [l9format](https://github.com/LeakIX/l9filter) which is a JSON schema targeted at network recon.
 
 [l9filter](https://github.com/LeakIX/l9filter) allows translation between this format and plenty others.
 
