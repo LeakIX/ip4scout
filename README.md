@@ -56,13 +56,13 @@ You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 ```sh
 ▶ apt-get install -y libpcap-dev
 ▶ GO111MODULE=on go get -u -v github.com/LeakIX/ip4scout/cmd/ip4scout
-▶ ${GOPATH}/bin/ip4scout -h
+▶ ${GOPATH}/bin/ip4scout random -h
 ```
 
 ## Running ip4scout
 
 ```sh
-▶ ip4scout -p 3304-3308,9200-9210 -r 10000 -b blacklist.txt
+▶ ip4scout random -p 3304-3308,9200-9210 -r 10000 -b blacklist.txt
 ```
 
 ## Handling output
@@ -74,7 +74,7 @@ ip4scout speaks [l9format](https://github.com/LeakIX/l9filter) which is a JSON s
 ### Human output
 
 ```sh 
-▶ ip4scout --ports=3306,9200,6379|tee results.json|l9filter -i json -o human
+▶ ip4scout random --ports=3306,9200,6379|tee results.json|l9filter -i json -o human
 ```
 
 Will display human-readable results on `stdout` while saving the scan results to `results.json` 
@@ -83,7 +83,7 @@ Will display human-readable results on `stdout` while saving the scan results to
 ### Hostport output
 
 ```sh 
-▶ ip4scout -p 3304-3308,9200-9210|tee results.json|l9filter -i json -o hostport
+▶ ip4scout random -p 3304-3308,9200-9210|tee results.json|l9filter -i json -o hostport
 ```
 
 Will display `host:port` results on `stdout` while saving the scan results to `results.json` 
