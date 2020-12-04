@@ -1,7 +1,6 @@
 # IP4scout
 
 [![GitHub Release](https://img.shields.io/github/v/release/LeakIX/ip4scout)](https://github.com/LeakIX/ip4scout/releases)
-[![contributions welcome](https://img.shields.io/b/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/LeakIX/ip4scout/issues)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/leak_ix.svg?logo=twitter)](https://twitter.com/leak_ix)
 
 IP4scout was born from the need of having a real-time feed of open ports.
