@@ -60,3 +60,4 @@ jobs:
       with:
         name: build
         path: bin/
+        retention-days: 1
