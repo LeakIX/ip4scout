@@ -10,6 +10,8 @@ Scanning at 5kps for 10 ports, statistically has an average of 2 weeks between 2
 
 Leaks are random, so is this!
 
+![ip4scout Output](https://i.imgur.com/GoUOXL8.gif)
+
 ## Features
 
 - SYN/ACK scanning
