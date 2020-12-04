@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/LeakIX/gopacket/routing"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
-	"github.com/LeakIX/gopacket/routing"
 	"github.com/mostlygeek/arp"
 	"gitlab.nobody.run/tbi/core"
 	"go.uber.org/ratelimit"
@@ -21,15 +21,22 @@ import (
 type RandomCommand struct {
 	BlacklistFile      *os.File         `help:"Blacklist file, in CIDR form" short:"b" type:"existingFile"`
 	SourcePort         layers.TCPPort   `help:"Source port, default is random" default:"0" short:"s"`
-	Ports              []layers.TCPPort `help:"list of target ports" short:"p"`
+	Ports              string           `help:"list of target ports" short:"p"`
 	RateLimit          int              `help:"Max pps" short:"r" default:"1000"`
 	DisableRecommended bool             `help:"Disable the recommended blacklist" short:"d"`
+	ports          []layers.TCPPort     `kong:"-"`
 }
 
-func (cmd *RandomCommand) Run() error {
+
+func (cmd *RandomCommand) Run() (err error) {
 	rand.Seed(time.Now().UnixNano())
 	if len(cmd.Ports) < 1 {
-		cmd.Ports = append(cmd.Ports, layers.TCPPort(0))
+		cmd.ports = append(cmd.ports, layers.TCPPort(0))
+	} else {
+		cmd.ports, err = ParsePortsList(cmd.Ports)
+		if err != nil {
+			return err
+		}
 	}
 	if cmd.SourcePort == 0 {
 		cmd.SourcePort = layers.TCPPort(rand.Int()%29000)+1000
@@ -55,7 +62,7 @@ func (cmd *RandomCommand) Run() error {
 		log.Printf("Loaded blacklist from %s", cmd.BlacklistFile.Name())
 	}
 	log.Printf("%d networks in blacklist", len(IPBlacklist))
-	log.Printf("Loaded %d ports to scan", len(toScanPorts))
+	log.Printf("Loaded %d ports to scan", len(cmd.ports))
 	log.Printf("Using source port %d", cmd.SourcePort)
 	// Compute routing settings for public packets
 	router, err := routing.New()
@@ -89,7 +96,7 @@ func (cmd *RandomCommand) Run() error {
 	var portToScan layers.TCPPort
 	for {
 		rl.Take()
-		portToScan = cmd.Ports[rand.Int()%len(cmd.Ports)]
+		portToScan = cmd.ports[rand.Int()%len(cmd.ports)]
 		if portToScan == 0 {
 			portToScan = layers.TCPPort((rand.Int()%9000)+1000)
 		}
@@ -195,10 +202,6 @@ func (cmd *RandomCommand) SendPacket(handle *pcap.Handle, iface *net.Interface, 
 		time.Sleep(10 * time.Second)
 	}
 }
-
-
-
-var toScanPorts = []layers.TCPPort{0}
 
 var IPBlacklist = []*net.IPNet{
 	{

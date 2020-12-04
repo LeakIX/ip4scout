@@ -62,7 +62,7 @@ You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 ## Running ip4scout
 
 ```sh
-▶ ip4scout --ports=3306,9200,6379 --rate-limit=10000 --blacklist-file=blacklist.txt
+▶ ip4scout -p 3304-3308,9200-9210 -r 10000 -b blacklist.txt
 ```
 
 ## Handling output
@@ -83,7 +83,7 @@ Will display human-readable results on `stdout` while saving the scan results to
 ### Hostport output
 
 ```sh 
-▶ ip4scout --ports=3306,9200,6379|tee results.json|l9filter -i json -o hostport
+▶ ip4scout -p 3304-3308,9200-9210|tee results.json|l9filter -i json -o hostport
 ```
 
 Will display `host:port` results on `stdout` while saving the scan results to `results.json` 
