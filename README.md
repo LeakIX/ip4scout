@@ -67,14 +67,14 @@ You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 
 ## Handling output
 
-ip4scout speaks [tbi-core](https://gitlab.nobody.run/tbi/core) which is a JSON schema targeted at network recon.
+ip4scout speaks [l9format](https://github.com/LeakIX/l9format) which is a JSON schema targeted at network recon.
 
 [l9filter](https://github.com/LeakIX/l9filter) allows translation between this format and plenty others.
 
 ### Human output
 
 ```sh 
-▶ ip4scout random --ports=3306,9200,6379|tee results.json|l9filter -i json -o human
+▶ ip4scout random --ports=3306,9200,6379|tee results.json|l9filter -i l9 -o human
 ```
 
 Will display human-readable results on `stdout` while saving the scan results to `results.json` 
@@ -83,7 +83,7 @@ Will display human-readable results on `stdout` while saving the scan results to
 ### Hostport output
 
 ```sh 
-▶ ip4scout random -p 3304-3308,9200-9210|tee results.json|l9filter -i json -o hostport
+▶ ip4scout random -p 3304-3308,9200-9210|tee results.json|l9filter -i l9 -o hostport
 ```
 
 Will display `host:port` results on `stdout` while saving the scan results to `results.json` 

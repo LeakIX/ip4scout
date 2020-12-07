@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/LeakIX/gopacket/routing"
+	"github.com/LeakIX/l9format"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
 	"github.com/mostlygeek/arp"
-	"gitlab.nobody.run/tbi/core"
 	"go.uber.org/ratelimit"
 	"log"
 	"math/rand"
@@ -124,10 +124,14 @@ func (cmd *RandomCommand) ListenForAck(handle *pcap.Handle) {
 		}
 		if ipLayer := packet.Layer(layers.LayerTypeIPv4); ipLayer != nil {
 			srcIp = ipLayer.(*layers.IPv4).SrcIP
-			err := jsonEncoder.Encode(&core.HostService{
+			event := &l9format.L9Event{
+				EventType: "synack",
 				Ip:   srcIp.String(),
 				Port: fmt.Sprintf("%d", dport),
-			})
+				EventSource: "ip4scout",
+			}
+			event.EventPipeline = append(event.EventPipeline, event.EventSource)
+			err := jsonEncoder.Encode(event)
 			if err != nil {
 				panic(err)
 			}
