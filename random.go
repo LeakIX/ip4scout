@@ -129,6 +129,7 @@ func (cmd *RandomCommand) ListenForAck(handle *pcap.Handle) {
 				Ip:   srcIp.String(),
 				Port: fmt.Sprintf("%d", dport),
 				EventSource: "ip4scout",
+				Time: time.Now(),
 			}
 			event.EventPipeline = append(event.EventPipeline, event.EventSource)
 			err := jsonEncoder.Encode(event)
