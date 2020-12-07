@@ -67,7 +67,7 @@ You're going to need libpcap's headers and **go1.14+** to built ip4scout.
 
 ## Handling output
 
-ip4scout speaks [l9format](https://github.com/LeakIX/l9filter) which is a JSON schema targeted at network recon.
+ip4scout speaks [tbi-core](https://gitlab.nobody.run/tbi/core) which is a JSON schema targeted at network recon.
 
 [l9filter](https://github.com/LeakIX/l9filter) allows translation between this format and plenty others.
 
