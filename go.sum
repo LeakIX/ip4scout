@@ -1,7 +1,7 @@
 github.com/LeakIX/gopacket v0.0.0-20201202174338-3b8c304bfd90 h1:BWOcCQI0HHq7kiVQhejE6ZL4/3b6k1jUu1nzpsDpw2c=
 github.com/LeakIX/gopacket v0.0.0-20201202174338-3b8c304bfd90/go.mod h1:u5DpKmohzZdLORPfRMiOsTqartxnZt+Bd+CD9I77IG0=
-github.com/LeakIX/l9format v0.0.0-20201207145253-4db7acff7f37 h1:vxpiqSAEqSdXjmtYnnDoYJKnIBXp4TBzmW9LHuCSLgM=
-github.com/LeakIX/l9format v0.0.0-20201207145253-4db7acff7f37/go.mod h1:UJJb5cEIdbCv59AmmFYtp53kdzIyC5cfV1urqxVyZEo=
+github.com/LeakIX/l9format v0.6.0 h1:VcjKDz5fyTmMGl/Vsdm1QE/72EZAj0wDjXTom93N+IE=
+github.com/LeakIX/l9format v0.6.0/go.mod h1:g/Lf4+9A69MaI9F6bJS6UcEbvSbv1NS5rLx/vLpHnYw=
 github.com/alecthomas/kong v0.2.12-0.20201112003237-5a9b3ae0120c h1:xl3vsr+ZAOkAbz3M0AzIepoYYulJ7gKBAJVoW68RaoM=
 github.com/alecthomas/kong v0.2.12-0.20201112003237-5a9b3ae0120c/go.mod h1:kQOmtJgV+Lb4aj+I2LEn40cbtawdWJ9Y8QLq+lElKxE=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -20,6 +20,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+gitlab.nobody.run/tbi/socksme v0.0.0-20201130024528-3ad02d4108c5 h1:OUBbWsRDwvD6Nu6rP8PN6xGxIxXpVPBPBE9iuvDQH90=
+gitlab.nobody.run/tbi/socksme v0.0.0-20201130024528-3ad02d4108c5/go.mod h1:2R0aT7bhH9+xiSielZpKS/TL4nTki1jxOCCgXN8BzV8=
 go.uber.org/atomic v1.7.0 h1:ADUqmZGgLDDfbSL9ZmPxKTybcoEYHgpYfELNoN+7hsw=
 go.uber.org/atomic v1.7.0/go.mod h1:fEN4uk6kAWBTFdckzkM89CLk9XfWZrxpCo0nPH17wJc=
 go.uber.org/ratelimit v0.1.0 h1:U2AruXqeTb4Eh9sYQSTrMhH8Cb7M0Ian2ibBOnBcnAw=
