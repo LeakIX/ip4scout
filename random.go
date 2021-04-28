@@ -115,7 +115,7 @@ func (cmd *RandomCommand) ListenForAck(handle *pcap.Handle) {
 		if tcpLayer := packet.Layer(layers.LayerTypeTCP); tcpLayer != nil {
 			if !tcpLayer.(*layers.TCP).SYN ||
 				!tcpLayer.(*layers.TCP).ACK ||
-				tcpLayer.(*layers.TCP).DstPort != layers.TCPPort(cmd.SourcePort) ||
+				tcpLayer.(*layers.TCP).DstPort != cmd.SourcePort ||
 				tcpLayer.(*layers.TCP).RST ||
 				tcpLayer.(*layers.TCP).Ack != 1 {
 				continue
