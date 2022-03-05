@@ -2,9 +2,10 @@ package ip4scout
 
 import (
 	"fmt"
-	"github.com/google/gopacket/layers"
 	"strconv"
 	"strings"
+
+	"github.com/google/gopacket/layers"
 )
 
 // CREDIT MENTION : to https://github.com/projectdiscovery/naabu/blob/master/v2/pkg/runner/ports.go#L173
@@ -44,7 +45,7 @@ func ParsePortsList(data string) (portList []layers.TCPPort, err error) {
 			ports[port] = struct{}{}
 		}
 	}
-	for port, _ := range ports {
+	for port := range ports {
 		portList = append(portList, layers.TCPPort(port))
 	}
 	return portList, nil
