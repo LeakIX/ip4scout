@@ -24,9 +24,8 @@ type RandomCommand struct {
 	Ports              string           `help:"list of target ports" short:"p"`
 	RateLimit          int              `help:"Max pps" short:"r" default:"1000"`
 	DisableRecommended bool             `help:"Disable the recommended blacklist" short:"d"`
-	ports          []layers.TCPPort     `kong:"-"`
+	ports              []layers.TCPPort `kong:"-"`
 }
-
 
 func (cmd *RandomCommand) Run() (err error) {
 	rand.Seed(time.Now().UnixNano())
@@ -39,7 +38,7 @@ func (cmd *RandomCommand) Run() (err error) {
 		}
 	}
 	if cmd.SourcePort == 0 {
-		cmd.SourcePort = layers.TCPPort(rand.Int()%29000)+1000
+		cmd.SourcePort = layers.TCPPort(rand.Int()%29000) + 1000
 	}
 	if !cmd.DisableRecommended {
 		IPBlacklist = append(IPBlacklist, recommendedBlacklist...)
@@ -81,7 +80,7 @@ func (cmd *RandomCommand) Run() (err error) {
 	}
 	defer handle.Close()
 	// Define our BPFFilter to listen for ACK/SYN
-	err = handle.SetBPFFilter(fmt.Sprintf("ip and port %d", cmd.SourcePort))
+	err = handle.SetBPFFilter(fmt.Sprintf("tcp[tcpflags] & tcp-syn == tcp-syn and tcp[tcpflags] & tcp-ack == tcp-ack and dst port %d", cmd.SourcePort))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -98,9 +97,9 @@ func (cmd *RandomCommand) Run() (err error) {
 		rl.Take()
 		portToScan = cmd.ports[rand.Int()%len(cmd.ports)]
 		if portToScan == 0 {
-			portToScan = layers.TCPPort((rand.Int()%9000)+1000)
+			portToScan = layers.TCPPort((rand.Int() % 9000) + 1000)
 		}
-		cmd.SendPacket(handle, iface, src, gwMac, cmd.RandomPublicIp(), portToScan )
+		cmd.SendPacket(handle, iface, src, gwMac, cmd.RandomPublicIp(), portToScan)
 	}
 }
 
@@ -113,22 +112,15 @@ func (cmd *RandomCommand) ListenForAck(handle *pcap.Handle) {
 		var dport layers.TCPPort
 		var srcIp net.IP
 		if tcpLayer := packet.Layer(layers.LayerTypeTCP); tcpLayer != nil {
-			if !tcpLayer.(*layers.TCP).SYN ||
-				!tcpLayer.(*layers.TCP).ACK ||
-				tcpLayer.(*layers.TCP).DstPort != cmd.SourcePort ||
-				tcpLayer.(*layers.TCP).RST ||
-				tcpLayer.(*layers.TCP).Ack != 1 {
-				continue
-			}
 			dport = tcpLayer.(*layers.TCP).SrcPort
 		}
 		if ipLayer := packet.Layer(layers.LayerTypeIPv4); ipLayer != nil {
 			srcIp = ipLayer.(*layers.IPv4).SrcIP
 			event := &l9format.L9Event{
 				EventType: "synack",
-				Ip:   srcIp.String(),
-				Port: fmt.Sprintf("%d", dport),
-				Time: time.Now(),
+				Ip:        srcIp.String(),
+				Port:      fmt.Sprintf("%d", dport),
+				Time:      time.Now(),
 			}
 			event.AddSource("ip4scout")
 			err := jsonEncoder.Encode(event)
@@ -158,7 +150,6 @@ func (cmd *RandomCommand) AddBLockToBlacklist(network string) {
 	}
 	IPBlacklist = append(IPBlacklist, net)
 }
-
 
 func (cmd *RandomCommand) IsIpPublic(ip net.IP) bool {
 	for _, block := range IPBlacklist {
@@ -245,55 +236,55 @@ var recommendedBlacklist = []*net.IPNet{
 		Mask: net.IPMask{255, 255, 255, 0},
 	},
 	{
-		IP:   net.IP{6,0, 0, 0},
+		IP:   net.IP{6, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{7,0, 0, 0},
+		IP:   net.IP{7, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{11,0, 0, 0},
+		IP:   net.IP{11, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{21,0, 0, 0},
+		IP:   net.IP{21, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{22,0, 0, 0},
+		IP:   net.IP{22, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{26,0, 0, 0},
+		IP:   net.IP{26, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{28,0, 0, 0},
+		IP:   net.IP{28, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{29,0, 0, 0},
+		IP:   net.IP{29, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{30,0, 0, 0},
+		IP:   net.IP{30, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{33,0, 0, 0},
+		IP:   net.IP{33, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{55,0, 0, 0},
+		IP:   net.IP{55, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{214,0, 0, 0},
+		IP:   net.IP{214, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 	{
-		IP:   net.IP{215,0, 0, 0},
+		IP:   net.IP{215, 0, 0, 0},
 		Mask: net.IPMask{255, 0, 0, 0},
 	},
 }
